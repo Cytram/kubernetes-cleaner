@@ -18,8 +18,8 @@ RUN go build -o /tmp/cleaner
 
 FROM scratch
 
-ENV CLEANER_PODS
-ENV CLEANER_NAMESPACE
+ENV CLEANER_PODS=
+ENV CLEANER_NAMESPACE=
 
 ENTRYPOINT [ "/cleaner" ]
 COPY --from=builder /tmp/cleaner /
