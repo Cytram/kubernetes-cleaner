@@ -1,12 +1,13 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: telepresence
+  name: telepresence-cleaner
   namespace: default
 spec:
   schedule: "0 23 * * 5"
   jobTemplate:
     spec:
+      backoffLimit: 0
       template:
         spec:
           serviceAccountName: telepresence-cleaner
@@ -18,3 +19,4 @@ spec:
                   value: "default"
                 - name: CLEANER_POD
                   value: "telepresence.*"
+          restartPolicy: Never
