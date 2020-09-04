@@ -13,7 +13,7 @@ import (
 )
 
 type env struct {
-	Deployment string `required:"true" split_words:"true"`
+	Pod string `required:"true" split_words:"true"`
 	Namespace string `required:"true" split_words:"true"`
 }
 
@@ -24,7 +24,7 @@ func main() {
 		panic(err)
 	}
 
-	regex := regexp.MustCompile(cfg.Deployment)
+	regex := regexp.MustCompile(cfg.Pod)
 
 	config, err := rest.InClusterConfig()
 	if err != nil {
@@ -48,6 +48,5 @@ func main() {
 			clientset.CoreV1().Pods(cfg.Namespace).Delete(context.Background(), pod.Name, metav1.DeleteOptions{})
 			fmt.Println("Deleting pod", pod.Name)
 		}
-		break
 	}
 }
